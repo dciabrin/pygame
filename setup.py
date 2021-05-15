@@ -496,7 +496,7 @@ def add_command(name):
     return decorator
 
 # try to find DLLs and copy them too  (only on windows)
-if sys.platform == 'win32':
+if sys.platform == 'win32' and not 'MSYSTEM' in os.environ:
 
     from distutils.command.build_ext import build_ext
 
