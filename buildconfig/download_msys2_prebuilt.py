@@ -25,8 +25,19 @@ def get_packages(x86=True, x64=True):
         'mingw-w64-{}-SDL2_image',
         'mingw-w64-{}-SDL2_mixer',
         'mingw-w64-{}-portmidi',
+        'mingw-w64-{}-libpng',
         'mingw-w64-{}-libjpeg-turbo',
-        'mingw-w64-{}-libpng'
+        'mingw-w64-{}-libtiff',
+        'mingw-w64-{}-zlib',
+        'mingw-w64-{}-libwebp',
+        'mingw-w64-{}-libvorbis',
+        'mingw-w64-{}-libogg',
+        'mingw-w64-{}-flac',
+        'mingw-w64-{}-libmodplug',
+        'mingw-w64-{}-mpg123',
+        'mingw-w64-{}-opus',
+        'mingw-w64-{}-opusfile',
+        'mingw-w64-{}-freetype'
     ]
 
     packages = []
