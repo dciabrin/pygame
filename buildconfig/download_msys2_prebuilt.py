@@ -12,8 +12,8 @@ def install_pacman_package(pkg_name):
                             capture_output=True, text=True)
     if output.returncode != 0:
         logging.error(
-            "Error {} while downloading package {}: \n{}".format(
-            output.returncode, pkg_name, output.stderr))
+            "Error {} while downloading package {}: \n{}".
+            format(output.returncode, pkg_name, output.stderr))
 
     return output.returncode != 0
 
@@ -55,7 +55,8 @@ def install_prebuilts(x86=True, x64=True):
     print("Installing pre-built dependencies")
     for pkg in get_packages(x86=x86, x64=x64):
         print("Installing {}".format(pkg))
-        errors = errors or install_pacman_package(pkg)
+        error = install_pacman_package(pkg)
+        errors = errors or error
     if errors:
         raise Exception("Some dependencies could not be installed")
 
