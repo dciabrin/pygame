@@ -1,6 +1,6 @@
 """Config on MSYS2"""
 
-# The search logic is adapted from config_windows.
+# The search logic is adapted from config_win.
 # This assumes that the PyGame dependencies are resolved
 # by MSYS2 packages.
 
@@ -38,7 +38,6 @@ def get_absolute_win_path(msys2_path):
         raise Exception("Could not get absolute Windows path: %s"%msys2_path)
     else:
         return output.stdout.strip()
-
 
 class Dependency(object):
     huntpaths = ['..', '../..', '../*', '../../*']
@@ -88,6 +87,7 @@ class Dependency(object):
                 self.inc_dir = self.fallback_inc[0]
             if self.fallback_lib and not self.lib_dir:
                 self.lib_dir = self.fallback_lib[0]
+                # MSYS2: lib<name>.dll.a -> <name>
                 self.libs[0] = os.path.splitext(self.fallback_lib[2])[0].lstrip('lib').rstrip('.dll')
             if self.inc_dir and self.lib_dir:
                 if print_result:
@@ -159,6 +159,7 @@ class Dependency(object):
             else:
                 self.inc_dir = inc_info[0]
                 self.lib_dir = lib_info[0]
+                # MSYS2: lib<name>.dll.a -> <name>
                 self.libs[0] = os.path.splitext(lib_info[2])[0].lstrip('lib').rstrip('.dll')
         self.paths = [p for p in self.paths if p not in prune]
 
@@ -179,6 +180,7 @@ class Dependency(object):
             if lib_info:
                 self.lib_info = lib_info[0]
                 if lib_info[2]:
+                    # MSYS2: lib<name>.dll.a -> <name>
                     self.libs[0] = os.path.splitext(lib_info[2])[0].lstrip('lib').rstrip('.dll')
         if self.lib_dir and self.inc_dir:
             print("...Library directory for %s: %s" % (self.name, self.lib_dir))
@@ -392,6 +394,7 @@ def setup_prebuilt_sdl2(prebuilt_dir):
     Dependency.huntpaths[:] = [prebuilt_dir]
     Dependency.lib_hunt.extend([
         '',
+        # MSYS2 installs prebuilt .dll in /mingw*/bin
         'bin',
         'lib',
     ])
